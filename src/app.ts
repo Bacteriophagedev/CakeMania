@@ -1,11 +1,11 @@
-import express, { Request, Response, NextFunction} from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan'
 import bodyParser from 'body-parser'
 import multer from "multer"
-import {config} from 'dotenv'
+import { config } from 'dotenv'
 import sequelize from './database.config';
 import methodOverride from 'method-override'
 import Users from './models/usermodel';
@@ -23,7 +23,7 @@ import categoryRouter from './routes/cat'
 config()
 const upload = multer({ dest: 'uploads/' })
 const app = express();
-const api = process.env.API_URL
+
 
 //middleawares
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -38,14 +38,14 @@ app.use(express.static(path.join(__dirname, '../', 'public')));
 
 
 //routes
-app.use(`${api}`, indexRouter);
-app.use(`${api}/users`, usersRouter);
-app.use(`${api}/admin`, adminRouter)
-app.use(`${api}/cakes`, cakeRouter)
-app.use(`${api}/categories`, categoryRouter)
+app.use(`/`, indexRouter);
+app.use(`/users`, usersRouter);
+app.use(`/admin`, adminRouter)
+app.use(`/cakes`, cakeRouter)
+app.use(`/categories`, categoryRouter)
 
 //database connection
-const models = [ Cakes, Categories, Items, Users];
+const models = [Cakes, Categories, Items, Users];
 
 // Synchronize the models with the database
 async function syncDatabase() {
@@ -83,7 +83,7 @@ app.set('view engine', 'ejs');
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
