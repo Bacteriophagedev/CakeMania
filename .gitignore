@@ -3,6 +3,5 @@ node_modules
 .env
 yarn.lock
 package-lock.json
-package.json
 yarn.lock
 tsconfig.json
